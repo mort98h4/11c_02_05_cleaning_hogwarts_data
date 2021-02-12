@@ -18,4 +18,27 @@ async function accioJsonData() {
     const jsonData = await fetch(url);
     theStudents = await jsonData.json();
     console.log(theStudents);
+
+    animagusJsonData();
+}
+
+function animagusJsonData() {
+    console.log("Amato animo animato animagus, JSON data!");
+
+    // for (let i = 0; i < 34; i++) {
+    //     theStudents = theStudents[i].fullname.trim();
+    //     console.log(theStudents[i].fullname.trim());
+    // }
+
+    theStudents.forEach(jsonObject => {
+        // jsonObject.fullname.substring(0).trim();
+        const student = Object.create(Student);
+        const firstSpace = jsonObject.fullname.trim().indexOf(" ");
+        const secondSpace = jsonObject.fullname.indexOf(" ", (firstSpace + 1));
+        const lastSpace = jsonObject.fullname.lastIndexOf(" ");
+
+        student.firstName = jsonObject.fullname.trim().substring(0, firstSpace);
+        console.log(student.firstName);
+
+    });
 }
