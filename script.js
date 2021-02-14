@@ -8,9 +8,11 @@ const Student = {
     lastName: "",
     middleName: "",
     nickName: "",
-    imageUrl: "",
-    house: ""
+    gender: "",
+    house: "",
+    imageUrl: ""
 };
+const allStudents = [];
 
 async function accioJsonData() {
     console.log("Accio, JSON data!");
@@ -30,9 +32,6 @@ function animagusJsonData() {
         const firstSpace = trimmedNames.indexOf(" ");
         const secondSpace = trimmedNames.indexOf(" ", (firstSpace + 1));
         const lastSpace = trimmedNames.lastIndexOf(" ");
-        
-
-        //console.log(trimmedNames);
 
         // Clean the firstnames
         if (firstSpace == -1) {
@@ -44,8 +43,6 @@ function animagusJsonData() {
         // console.log(student.firstName);
 
         // Clean the middlenames and nicknames
-        let middleNames = student.middleName; 
-        let nickNames = student.nickName;
         student.middleName = trimmedNames.substring(firstSpace, lastSpace).trim();
         if (student.middleName.substring(0,1) == `"`) {
             student.nickName = student.middleName;
@@ -72,6 +69,27 @@ function animagusJsonData() {
             student.lastName = student.lastName.substring(0, 1).toUpperCase() + student.lastName.substring(1, ifHyphens+1).toLowerCase() + student.lastName.substring(ifHyphens+1, ifHyphens+2).toUpperCase() + student.lastName.substring(ifHyphens+2).toLowerCase();
         }
         //console.log(student.lastName);
-        console.log(student);
+
+        // Clean the genders
+        student.gender = jsonObject.gender.trim();
+        student.gender = student.gender.substring(0, 1).toUpperCase() + student.gender.substring(1).toLowerCase();
+        //console.log(student.gender);
+
+        // Clean the houses
+        student.house = jsonObject.house.trim();
+        student.house = student.house.substring(0, 1).toUpperCase() + student.house.substring(1).toLowerCase();
+        //console.log(student.house);
+
+        // Add imageUrl
+        if (ifHyphens == -1) {
+            student.imageUrl = student.lastName.toLowerCase() + `_${student.firstName.substring(0,1).toLowerCase()}` + `.png`;
+        } else {
+            student.imageUrl = student.lastName.substring(ifHyphens + 1).toLowerCase() + `_${student.firstName.substring(0,1).toLowerCase()}` + `.png`;
+        }
+        //console.log(student.imageUrl);
+        //console.log(student);
+        allStudents.push(student);
     });
+
+    console.log(allStudents);
 }
