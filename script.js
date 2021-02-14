@@ -91,5 +91,5 @@ function animagusJsonData() {
         allStudents.push(student);
     });
 
-    console.log(allStudents);
+    console.table(allStudents);
 }
