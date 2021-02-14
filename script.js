@@ -34,7 +34,7 @@ function animagusJsonData() {
 
         //console.log(trimmedNames);
 
-        // Clean the firstname
+        // Clean the firstnames
         if (firstSpace == -1) {
             student.firstName = trimmedNames;
         } else {
@@ -43,7 +43,22 @@ function animagusJsonData() {
         student.firstName = student.firstName.substring(0, 1).toUpperCase() + student.firstName.substring(1).toLowerCase()
         // console.log(student.firstName);
 
-        // Clean the lastname
+        // Clean the middlenames and nicknames
+        let middleNames = student.middleName; 
+        let nickNames = student.nickName;
+        student.middleName = trimmedNames.substring(firstSpace, lastSpace).trim();
+        if (student.middleName.substring(0,1) == `"`) {
+            student.nickName = student.middleName;
+            student.middleName = "";
+            student.nickName = student.nickName.substring(0, 1) + student.nickName.substring(1, 2).toUpperCase() + student.nickName.substring(2).toLowerCase();
+        } else {
+            student.nickName = "";
+            student.middleName = student.middleName.substring(0, 1).toUpperCase() + student.middleName.substring(1).toLowerCase();
+        }
+        //console.log(nickNames);
+        //console.log(middleNames);
+
+        // Clean the lastnames
         if (lastSpace == -1) {
             student.lastname = "";
         } else {
