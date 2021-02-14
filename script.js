@@ -26,12 +26,37 @@ function animagusJsonData() {
     console.log("Amato animo animato animagus, JSON data!");
     theStudents.forEach(jsonObject => {
         const student = Object.create(Student);
-        const firstSpace = jsonObject.fullname.trim().indexOf(" ");
-        const secondSpace = jsonObject.fullname.indexOf(" ", (firstSpace + 1));
-        const lastSpace = jsonObject.fullname.lastIndexOf(" ");
+        const trimmedNames = jsonObject.fullname.trim();
+        const firstSpace = trimmedNames.indexOf(" ");
+        const secondSpace = trimmedNames.indexOf(" ", (firstSpace + 1));
+        const lastSpace = trimmedNames.lastIndexOf(" ");
+        
 
-        student.firstName = jsonObject.fullname.trim().substring(0, firstSpace);
-        console.log(student.firstName);
+        //console.log(trimmedNames);
 
+        // Clean the firstname
+        if (firstSpace == -1) {
+            student.firstName = trimmedNames;
+        } else {
+            student.firstName = trimmedNames.substring(0, firstSpace);
+        }
+        student.firstName = student.firstName.substring(0, 1).toUpperCase() + student.firstName.substring(1).toLowerCase()
+        // console.log(student.firstName);
+
+        // Clean the lastname
+        if (lastSpace == -1) {
+            student.lastname = "";
+        } else {
+            student.lastName = trimmedNames.substring(lastSpace + 1);
+        }
+        const ifHyphens = student.lastName.indexOf("-");
+
+        if (ifHyphens == -1) {
+            student.lastName = student.lastName.substring(0, 1).toUpperCase() + student.lastName.substring(1).toLowerCase();
+        } else {
+            student.lastName = student.lastName.substring(0, 1).toUpperCase() + student.lastName.substring(1, ifHyphens+1).toLowerCase() + student.lastName.substring(ifHyphens+1, ifHyphens+2).toUpperCase() + student.lastName.substring(ifHyphens+2).toLowerCase();
+        }
+        //console.log(student.lastName);
+        console.log(student);
     });
 }
